@@ -10,12 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2025_11_17_042722) do
-=======
->>>>>>> develop
 
-ActiveRecord::Schema.define(version: 2025_11_17_031319) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -90,8 +86,8 @@ ActiveRecord::Schema.define(version: 2025_11_17_031319) do
     t.index ["genre_id"], name: "index_products_on_genre_id"
   end
 
-  add_foreign_key "orders", "customers"
   add_foreign_key "cart_items", "customers"
   add_foreign_key "cart_items", "products"
+  add_foreign_key "orders", "customers"
   add_foreign_key "products", "genres"
 end
