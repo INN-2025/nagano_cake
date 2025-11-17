@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # 管理者用Devise
   devise_for :admins, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
@@ -18,11 +17,12 @@ Rails.application.routes.draw do
     resources :items
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
-    
-    resources :orders, only: [:show, :update] do
+
+    resources :order, only:[:show, :update] do
       resources :order_details, only: [:update]
     end
   end
+
 
   # 顧客側(Public)
   scope module: :public do
@@ -36,8 +36,7 @@ Rails.application.routes.draw do
         delete 'destroy_all'
       end
     end
-    
-    resources :orders, only: [:new, :create, :index, :show] do
+        resources :orders, only: [:new, :create, :index, :show] do
       collection do
         post 'confirm'
         get 'thanks'
