@@ -17,7 +17,7 @@ class Public::ItemsController < ApplicationController
   # URL: GET /items/:id
   def show
     @product = Product.find(params[:id])
-    # @cart_item = CartItem.new  # カートアイテムの初期化
+    @cart_item = CartItem.new  # カートアイテムの初期化
     @genres = Genre.where(is_active: true)
   end
 end

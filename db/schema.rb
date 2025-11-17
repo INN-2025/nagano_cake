@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_11_16_094518) do
+ActiveRecord::Schema.define(version: 2025_11_17_031319) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2025_11_16_094518) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "cart_items", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "product_id", null: false
+    t.integer "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_cart_items_on_customer_id"
+    t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -54,5 +64,7 @@ ActiveRecord::Schema.define(version: 2025_11_16_094518) do
     t.index ["genre_id"], name: "index_products_on_genre_id"
   end
 
+  add_foreign_key "cart_items", "customers"
+  add_foreign_key "cart_items", "products"
   add_foreign_key "products", "genres"
 end
