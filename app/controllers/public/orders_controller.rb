@@ -23,11 +23,12 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
+    @order.shipping_cost = 800
     @order.save
 
     current_customer.cart_items.each do |cart_items|
       OrderDetail.create(order_id: @order.id,product_id:cart_item.product_id,amount: cart_item.amount,price: cart_item.product.price)
-    end
+  end
 
   current_customer.cart_items.destroy_all
     redirect_to thanks_orders_path
@@ -38,6 +39,11 @@ class Public::OrdersController < ApplicationController
 
   def index
     @orders = current_customer.orders
+  end
+
+  def show
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details
   end
 
   private
