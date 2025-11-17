@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <!-- サイドバー: ジャンル一覧 -->
+    <div class="col-md-3">
+      <h4>ジャンル検索</h4>
+      <ul class="list-group">
+        <%= link_to "全ての商品", items_path, class: "list-group-item" %>
+        <% @genres.each do |genre| %>
+          <%= link_to genre.name, items_path(genre_id: genre.id), class: "list-group-item" %>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- メインコンテンツ: 商品一覧 -->
+    <div class="col-md-9">
+      <h2>商品一覧</h2>
+      <div class="row">
+        <% @products.each do |product| %>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><%= product.name %></h5>
+                <p class="card-text"><%= number_to_currency(product.price, unit: "¥", precision: 0) %></p>
+                <%= link_to "詳細を見る", item_path(product), class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- ページネーション -->
+      <%= paginate @products %>
+    </div>
+  </div>
+</div>
