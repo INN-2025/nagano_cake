@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     sessions: "public/sessions"
   }
 
-  # ログアウトがGETメソッドで実行されるのを防ぐためのルーティング
+  # ログアウトがGETメソッドで実行されるルーティング
     devise_scope :customer do
       get '/customers/sign_out' => 'devise/sessions#destroy'
     end
