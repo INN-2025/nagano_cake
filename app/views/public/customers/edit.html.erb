@@ -1,0 +1,55 @@
+<div class="container" style="max-width: 700px; margin: 40px auto;">
+  <h2 class="text-center mb-4">会員情報編集</h2>
+
+  <%= form_with model: @customer, url: public_customer_update_path, method: :patch, local: true do |f| %>
+
+    <!-- 氏名 -->
+    <div class="form-group mb-3">
+      <label>氏名</label>
+      <div style="display: flex; gap: 10px;">
+        <%= f.text_field :last_name, class: "form-control" %>
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+    </div>
+
+    <!-- フリガナ -->
+    <div class="form-group mb-3">
+      <label>フリガナ</label>
+      <div style="display: flex; gap: 10px;">
+        <%= f.text_field :last_name_kana, class: "form-control" %>
+        <%= f.text_field :first_name_kana, class: "form-control" %>
+      </div>
+    </div>
+
+    <!-- 郵便番号 -->
+    <div class="form-group mb-3">
+      <label>郵便番号</label>
+      <%= f.text_field :postal_code, class: "form-control" %>
+    </div>
+
+    <!-- 住所 -->
+    <div class="form-group mb-3">
+      <label>住所</label>
+      <%= f.text_field :address, class: "form-control" %>
+    </div>
+
+    <!-- 電話番号 -->
+    <div class="form-group mb-3">
+      <label>電話番号</label>
+      <%= f.text_field :telephone_number, class: "form-control" %>
+    </div>
+
+    <!-- メールアドレス -->
+    <div class="form-group mb-4">
+      <label>メールアドレス</label>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
+
+    <!-- ボタンエリア -->
+    <div style="display: flex; gap: 20px; ">
+      <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+
+    </div>
+
+  <% end %>
+</div>
