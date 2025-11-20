@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     get 'customers/my_page', to: 'customers#show', as: 'customer_my_page'
     get 'customers/information/edit', to: 'customers#edit', as: 'customer_edit'
     patch 'customers/information', to: 'customers#update', as: 'customer_update'
+    get 'customers/unsubscribe', to: 'customers#unsubscribe', as: 'customer_unsubscribe'
+    patch 'customers/withdraw', to: 'customers#withdraw', as: 'customer_withdraw'
   end
   get 'customers/index'
   get 'customers/edit'

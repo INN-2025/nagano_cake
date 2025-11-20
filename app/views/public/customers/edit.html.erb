@@ -48,7 +48,9 @@
     <!-- ボタンエリア -->
     <div style="display: flex; gap: 20px; ">
       <%= f.submit "編集内容を保存", class: "btn btn-success" %>
-
+    </div>
+    <div style="display: flex; gap: 20px; ">
+      <%= link_to "退会する",  public_customer_unsubscribe_path, class: "btn btn-danger px-4" %>
     </div>
 
   <% end %>
