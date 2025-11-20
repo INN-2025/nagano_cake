@@ -1,0 +1,23 @@
+<h1>ジャンル管理<h1>
+
+<% if @genre.errors.any? %>
+  <div style="color: red;">
+    <% @genre.errors.full_messages.each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
+<% end %>
+
+<%= form_with model: @genre, url:admin_genres_path, local: true do |f| %>
+  <%= f.label :name, "ジャンル名" %>
+  <%= f.text_field :name %>
+  <%= f.submit "追加" %>
+<% end %>
+
+<hr>
+
+<% @genres.each do |genre| %>
+  <p><%= genre.name %>
+    <%= link_to "編集",edit_admin_genre_path(genre) %>
+  </p>
+<% end %>
