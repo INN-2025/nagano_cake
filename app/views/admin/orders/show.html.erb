@@ -1,2 +1,86 @@
-<h1>Admins::Orders#show</h1>
-<p>Find me in app/views/admins/orders/show.html.erb</p>
+<div class="container mt-4">
+
+  <h4 class="mb-4 border-bottom pb-2">注文履歴詳細</h4>
+
+  <!-- ===== 注文基本情報 ===== -->
+  <table class="table table-bordered w-50">
+    <tbody>
+      <tr>
+        <th class="table-light" style="width: 180px;">購入者</th>
+        <td><%= link_to @order.name, admin_order_path %></td>
+      </tr>
+      <tr>
+        <th class="table-light">注文日</th>
+        <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+      </tr>
+      <tr>
+        <th class="table-light">配送先</th>
+        <td>
+          〒<%= @order.postal_code %> <%= @order.address %><br>
+          <%= @order.name %>
+        </td>
+      </tr>
+      <tr>
+        <th class="table-light">支払方法</th>
+        <td><%= @order.payment_method_i18n %></td>
+      </tr>
+      <tr>
+        <th class="table-light">注文ステータス</th>
+        <td>
+          <%= form_with model: @order, url: admin_order_path(@order), method: :patch, local: true do |f| %>
+            <div class="d-flex">
+              <%= f.select :status, Order.statuses.keys.map { |k| [t("enums.order.status.#{k}"), k] }, class: "form-select w-auto me-2" %>
+              <%= f.submit "更新", class: "btn btn-success" %>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ===== 商品情報 ===== -->
+  <h5 class="mt-4 border-bottom pb-2">注文内容</h5>
+
+  <table class="table table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>商品名</th>
+        <th class="text-end">単価（税込）</th>
+        <th class="text-end">数量</th>
+        <th class="text-end">小計</th>
+        <th>制作ステータス</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @order.order_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td class="text-end"><%= item.price %>円</td>
+          <td class="text-end"><%= item.amount %></td>
+          <td class="text-end"><%= item.subtotal %>円</td>
+          <td>
+            <%= form_with model: item, url: admin_order_item_path(item), method: :patch, local: true do |f| %>
+              <div class="d-flex">
+                <%= f.select :making_status, Order.statuses.keys.map { |k| [t("enums.Order.status.#{k}"), k] }, class: "form-select w-auto me-2" %>
+                <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
+              </div>
+            <% end %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <!-- ===== 合計金額 ===== -->
+  <div class="text-end mt-3">
+    <p>商品合計　<strong><%= @order.total_payment - @order.shipping_cost %>円</strong></p>
+    <p>送料　　　<strong><%= @order.shipping_cost %>円</strong></p>
+    <p class="fs-5 border-top pt-2">請求金額合計　<strong><%= @order.total_payment %>円</strong></p>
+  </div>
+
+</div>
