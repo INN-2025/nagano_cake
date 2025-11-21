@@ -1,0 +1,69 @@
+<% if @address.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @address.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h3 class="mb-4">配送先登録／一覧</h3>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <%= form_with model: @address, url: addresses_path, method: :post, local: true do |f| %>
+
+        <div class="form-group mb-2">
+          <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
+          <%= f.text_field :postal_code, class: "form-control w-50" %>
+        </div>
+
+        <div class="form-group mb-2">
+          <%= f.label :address, "住所" %>
+          <%= f.text_field :address, class: "form-control" %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= f.label :name, "宛名" %>
+          <%= f.text_field :name, class: "form-control w-50" %>
+        </div>
+
+        <%= f.submit "新規登録", class: "btn btn-success" %>
+
+      <% end %>
+
+    </div>
+  </div>
+
+  <hr class="my-4">
+
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>郵便番号</th>
+        <th>住所</th>
+        <th>宛名</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @addresses.each do |ad| %>
+        <tr>
+          <td><%= ad.postal_code %></td>
+          <td><%= ad.address %></td>
+          <td><%= ad.name %></td>
+          <td>
+            <%= link_to "編集する", edit_address_path(ad), class: "btn btn-primary btn-sm me-2" %>
+            <%= link_to "削除する", address_path(ad), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
