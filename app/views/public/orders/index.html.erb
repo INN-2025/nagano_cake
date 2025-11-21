@@ -1,37 +1,52 @@
-<h2>注文履歴一覧</h2>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      注文履歴一覧
+    </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>注文日</th>
-      <th>配送先</th>
-      <th>注文商品</th>
-      <th>支払金額</th>
-      <th>ステータス</th>
-      <th></th>
-    </tr>
-  </thead>
+    <div class="card-body">
 
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.created_at.strftime("%Y/%m/%d") %></td>
-        <td>
-          〒<%= order.postal_code %><br>
-            <%= order.address %><br>
-            <%= order.name %>
-        </td>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>注文日</th>
+            <th>配送先</th>
+            <th>注文商品</th>
+            <th>支払金額</th>
+            <th>ステータス</th>
+            <th>注文詳細</th>
+          </tr>
+        </thead>
 
-        <td>
-          <% order.order_details.each do |order_detail| %>
-            <%= order_detail.product.name %><br>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.created_at.strftime("%Y/%m/%d") %></td>
+
+              <td>
+                〒<%= order.postal_code %><br>
+                <%= order.address %><br>
+                <%= order.name %>
+              </td>
+
+              <td>
+                <% order.order_details.each do |detail| %>
+                  <%= detail.product.name %><br>
+                <% end %>
+              </td>
+
+              <td><%= number_with_delimiter(order.billing_amount) %>円</td>
+
+              <td><%#= order.status_i18n rescue "" %></td>
+
+              <td>
+                <%= link_to "表示する", order_path(order), class: "btn btn-primary" %>
+              </td>
+            </tr>
           <% end %>
-        </td>
+        </tbody>
+      </table>
 
-        <td><%= order.total_payment.to_s(:delimited) %>円</td>
-        <td><%= order.status_i18n %></td>
-        <td><%= link_to "表示する", order_path(order), class: "btn btn-primary" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
+    </div>
+  </div>
+</div>
