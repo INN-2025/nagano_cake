@@ -6,7 +6,13 @@
 
     <!-- 支払い方法 -->
     <div class="mb-4">
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>  
+        </div>
+      <% end %>
       <h4>支払い方法</h4>
+
       <%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %>
 
         <div class="form-check">
@@ -33,7 +39,20 @@
           <%= current_customer.address %>  
           <%= current_customer.last_name + current_customer.first_name %>
         </div>
+         <!-- 登録済住所から選択 -->
+          <div class="form-check mb-3">
+            <%= f.radio_button :address_option, "registered", class: "form-check-input" %>
+            <%= f.label :address_option_registered, "登録済住所から選択", class: "form-check-label" %>
 
+            <br>
+
+            <%= f.collection_select :registered_address_id,
+                                    @addresses,
+                                    :id,
+                                    :full_address,
+                                    { prompt: "選択してください" },
+                                    { class: "form-control w-50 mt-2" } %>
+          </div>
         <!-- 新しいお届け先 -->
         <div class="form-check">
           <%= f.radio_button :address_option, "new", class: "form-check-input" %>
