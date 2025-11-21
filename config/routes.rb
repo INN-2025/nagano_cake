@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :customers, only: [:index, :show, :edit, :update]
-  end
-
 
   namespace :public do
     get 'customers/my_page', to: 'customers#show', as: 'customer_my_page'
@@ -38,7 +34,7 @@ Rails.application.routes.draw do
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
 
-    resources :order, only:[:show, :update] do
+    resources :orders, only:[:show, :update] do
       resources :order_details, only: [:update]
     end
   end
