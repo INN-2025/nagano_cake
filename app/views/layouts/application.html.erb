@@ -6,15 +6,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <main class="<%= content_for?(:main_class) ? yield(:main_class) :'' %>">
-     <%= yield %>
-    </main>
-    <%= render 'layouts/footer' %>
+    <%= yield %>
   </body>
 </html>
