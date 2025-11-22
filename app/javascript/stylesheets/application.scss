@@ -35,3 +35,59 @@ body.orders-new{
   background-color: #fffaf2;   
   box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
 }
+
+body {
+  font-family: 'Noto Serif JP', serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', 'Noto Serif JP', serif;
+  letter-spacing: 1px;
+}
+
+.btn-brown {
+  background-color: #8B5E3C;  
+  color: #fff;
+  border: none;
+}
+
+.btn-brown:hover {
+  background-color: #6B4F2E; 
+  color: #fff;
+}
+
+.btn-light-brown {
+  background-color: #D8C1A5; 
+  color: #6B4F2E;           
+  border: none;
+}
+
+.btn-light-brown:hover {
+  background-color: #C4A98B;
+  color: #6B4F2E;
+}
+
+.btn-primary {
+  background-color: #C9A27D !important;  
+  border-color: #C9A27D !important;
+}
+
+.btn-success {
+  background-color: #8B5E3C !important;  
+  border-color: #8B5E3C !important;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+  opacity: 0.8; 
+}
+
+.list-group-item {
+  color: #8B5E3C !important;  
+  font-weight: 500;            
+}
+
+.list-group-item:hover {
+  color: #C9A27D !important;   
+  text-decoration: none;
+}

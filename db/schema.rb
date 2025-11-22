@@ -41,10 +41,17 @@ ActiveRecord::Schema.define(version: 2025_11_22_044152) do
   end
 
   create_table "addresses", force: :cascade do |t|
+<<<<<<< HEAD
     t.integer "customer_id", null: false
     t.string "name"
     t.string "postal_code"
     t.string "address"
+=======
+    t.integer "customer_id"
+    t.string "postal_code"
+    t.string "address"
+    t.string "name"
+>>>>>>> d5461bf (商品詳細画像ページに画像表示機能追加・フォント調整)
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_addresses_on_customer_id"
@@ -138,6 +145,11 @@ ActiveRecord::Schema.define(version: 2025_11_22_044152) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+<<<<<<< HEAD
+=======
+  add_foreign_key "cart_items", "customers"
+  add_foreign_key "cart_items", "products"
+>>>>>>> d5461bf (商品詳細画像ページに画像表示機能追加・フォント調整)
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "products"
   add_foreign_key "orders", "customers"

@@ -15,12 +15,12 @@
               <div class="card-body">
                 <h5 class="card-title"><%= product.name %></h5>
                 <p>¥<%= product.price %></p>
-                <%= link_to "詳細", item_path(product), class: "btn btn-sm btn-primary" %>
+                <%= link_to "詳細", item_path(product), class: "btn btn-brown btn-sm" %>
               </div>
             </div>
           </div>
         <% end %>
       </div>
   
-  <%= link_to "全ての商品を見る", items_path, class: "btn btn-success mt-3" %>
+  <%= link_to "全ての商品を見る", items_path, class: "btn btn-light-brown mt-3" %>
 </div>
