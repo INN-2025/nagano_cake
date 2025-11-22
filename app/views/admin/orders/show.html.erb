@@ -7,7 +7,7 @@
     <tbody>
       <tr>
         <th class="table-light" style="width: 180px;">購入者</th>
-        <td><%= @order.name %></td>
+        <td><%= link_to "#{@order.customer.last_name} #{@order.customer.first_name}", admin_order_path(@order) %></td>
       </tr>
       <tr>
         <th class="table-light">注文日</th>
