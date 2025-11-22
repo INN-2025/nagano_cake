@@ -18,3 +18,20 @@ body.orders-new{
   font-size: 1rem;
   font-weight: normal;
 }
+
+.nav-link{
+  color: #6B4F32 !important;
+}
+.nav-link:hover{
+  color: #3E2A1C !important;
+}
+
+.top-about-box {
+  border: 2px solid #b58b4c;   
+  border-radius: 12px;         
+  padding: 30px;
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #fffaf2;   
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+}
