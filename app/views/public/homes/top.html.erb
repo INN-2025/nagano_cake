@@ -19,7 +19,7 @@
 
               <div class="card-body">
                 <h5 class="card-title"><%= product.name %></h5>
-                <p>¥<%= product.price %></p>
+                <p>¥<%= product.with_tax_price %></p>
                 <%= link_to "詳細", item_path(product), class: "btn btn-brown btn-sm" %>
               </div>
             </div>

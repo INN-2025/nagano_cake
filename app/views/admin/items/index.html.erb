@@ -13,7 +13,7 @@
       <tr>
         <th>商品ID</th>
         <th>商品名</th>
-        <th>税抜価格</th>
+        <th>税込価格</th>
         <th>ジャンル</th>
         <th>ステータス</th>
       </tr>
@@ -23,7 +23,7 @@
         <tr>
           <td><%= item.id %></td>
           <td><%= link_to item.name, admin_item_path(item) %></td>
-          <td><%= number_to_currency(item.price, unit: "", precision: 0) %></td>
+          <td><%= number_to_currency(item.with_tax_price, unit: "", precision: 0) %>円</td>
           <td><%= item.genre.name %></td>
           <td>
             <% if item.active? %>
@@ -37,5 +37,23 @@
     </tbody>
   </table>
 
-  <%= paginate @items %>
+  <nav aria-label="ページナビゲーション">
+    <ul class="pagination">
+      <% if @items.first_page? %>
+        <li class="page-item disabled"><span class="page-link">« 最初</span></li>
+        <li class="page-item disabled"><span class="page-link">‹ 前</span></li>
+      <% else %>
+        <li class="page-item"><%= link_to "« 最初", admin_items_path(page: 1), class: "page-link" %></li>
+        <li class="page-item"><%= link_to "‹ 前", admin_items_path(page: @items.prev_page), class: "page-link" %></li>
+      <% end %>
+      
+      <% if @items.last_page? %>
+        <li class="page-item disabled"><span class="page-link">次 ›</span></li>
+        <li class="page-item disabled"><span class="page-link">最後 »</span></li>
+      <% else %>
+        <li class="page-item"><%= link_to "次 ›", admin_items_path(page: @items.next_page), class: "page-link" %></li>
+        <li class="page-item"><%= link_to "最後 »", admin_items_path(page: @items.total_pages), class: "page-link" %></li>
+      <% end %>
+    </ul>
+  </nav>
 </div>

@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   # 管理者用Devise
   devise_for :admins, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
+  },path: 'admin', path_names: {
+  sign_in: 'sign_in',
+  sign_out: 'sign_out'
   }
   
   # 顧客用Devise

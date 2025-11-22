@@ -39,3 +39,12 @@ ja:
       is_active:
         active: "販売中"
         inactive: "販売停止中"
+
+  # Kaminariのページネーション日本語化
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."

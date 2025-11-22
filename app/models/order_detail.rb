@@ -10,9 +10,14 @@ class OrderDetail < ApplicationRecord
     completed: 3        # 製作完了
   }
   
-  # 小計を計算
+  # 税込単価を取得（OrderDetail作成時にpriceカラムに保存された価格に対して消費税を適用）
+  def price_with_tax
+    (price * 1.1).floor
+  end
+  
+  # 小計を計算（税込単価 × 数量）
   def subtotal
-    price * amount
+    price_with_tax * amount
   end
 end
 

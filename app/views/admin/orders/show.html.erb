@@ -57,9 +57,9 @@
       <% @order.order_details.each do |detail| %>
         <tr>
           <td><%= detail.product.name %></td>
-          <td class="text-end"><%= detail.price %>円</td>
+          <td class="text-end"><%= number_to_currency(detail.price_with_tax, unit: "", precision: 0) %>円</td>
           <td class="text-end"><%= detail.amount %></td>
-          <td class="text-end"><%= detail.price * detail.amount %>円</td>
+          <td class="text-end"><%= number_to_currency(detail.subtotal, unit: "", precision: 0) %>円</td>
           <td>
             <%= form_with model: detail, url: admin_order_order_detail_path(@order, detail), method: :patch, local: true do |f| %>
               <div class="d-flex">
