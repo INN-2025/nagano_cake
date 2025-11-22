@@ -1,4 +1,4 @@
-<div class="container mt-4">
+  <div class="container mt-4">
 
   <h4 class="mb-4 border-bottom pb-2">注文履歴詳細</h4>
 
@@ -7,7 +7,7 @@
     <tbody>
       <tr>
         <th class="table-light" style="width: 180px;">購入者</th>
-        <td><%= link_to @order.name, admin_order_path %></td>
+        <td><%= @order.name %></td>
       </tr>
       <tr>
         <th class="table-light">注文日</th>
@@ -29,7 +29,7 @@
         <td>
           <%= form_with model: @order, url: admin_order_path(@order), method: :patch, local: true do |f| %>
             <div class="d-flex">
-              <%= f.select :status, Order.statuses.keys.map { |k| [t("enums.order.status.#{k}"), k] }, class: "form-select w-auto me-2" %>
+              <%= f.select :status, Order.statuses.keys.map { |k| [t("enums.order.status.#{k}"), k] }, {}, class: "form-select w-auto me-2" %>
               <%= f.submit "更新", class: "btn btn-success" %>
             </div>
           <% end %>
@@ -50,26 +50,24 @@
         <th class="text-end">数量</th>
         <th class="text-end">小計</th>
         <th>制作ステータス</th>
-        <th></th>
       </tr>
     </thead>
 
     <tbody>
-      <% @order.order_items.each do |item| %>
+      <% @order.order_details.each do |detail| %>
         <tr>
-          <td><%= item.product.name %></td>
-          <td class="text-end"><%= item.price %>円</td>
-          <td class="text-end"><%= item.amount %></td>
-          <td class="text-end"><%= item.subtotal %>円</td>
+          <td><%= detail.product.name %></td>
+          <td class="text-end"><%= detail.price %>円</td>
+          <td class="text-end"><%= detail.amount %></td>
+          <td class="text-end"><%= detail.price * detail.amount %>円</td>
           <td>
-            <%= form_with model: item, url: admin_order_item_path(item), method: :patch, local: true do |f| %>
+            <%= form_with model: detail, url: admin_order_order_detail_path(@order, detail), method: :patch, local: true do |f| %>
               <div class="d-flex">
-                <%= f.select :making_status, Order.statuses.keys.map { |k| [t("enums.Order.status.#{k}"), k] }, class: "form-select w-auto me-2" %>
+                <%= f.select :making_status, OrderDetail.making_statuses.keys.map { |k| [t("enums.order_detail.making_status.#{k}"), k] }, {}, class: "form-select w-auto me-2" %>
                 <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
               </div>
             <% end %>
           </td>
-
         </tr>
       <% end %>
     </tbody>
@@ -78,9 +76,9 @@
 
   <!-- ===== 合計金額 ===== -->
   <div class="text-end mt-3">
-    <p>商品合計　<strong><%= @order.total_payment - @order.shipping_cost %>円</strong></p>
+    <p>商品合計　<strong><%= @order.total %>円</strong></p>
     <p>送料　　　<strong><%= @order.shipping_cost %>円</strong></p>
-    <p class="fs-5 border-top pt-2">請求金額合計　<strong><%= @order.total_payment %>円</strong></p>
+    <p class="fs-5 border-top pt-2">請求金額合計　<strong><%= @order.billing_amount %>円</strong></p>
   </div>
 
-</div>
+</div> 

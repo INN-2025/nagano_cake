@@ -1,9 +1,41 @@
- ja:
+ja:
+  activerecord:
+    models:
+      product: "商品"
+    attributes:
+      product:
+        name: "商品名"
+        introduction: "商品説明"
+        price: "税抜価格"
+        genre: "ジャンル"
+        genre_id: "ジャンル"
+        image: "商品画像"
+        is_active: "販売ステータス"
+    errors:
+      messages:
+        blank: "を入力してください"
+        required: "を選択してください"
+        not_a_number: "は数値で入力してください"
+        greater_than_or_equal_to: "は%{count}以上の値にしてください"
+  
   enums:
     order:
+      payment_method:
+        credit_card: "クレジットカード"
+        bank_transfer: "銀行振込"
       status:
-        before_payment: 入金待ち
-        confirmed_payment: 入金確認
-        making: 製作中
-        ready_for_shipment: 発送準備中
-        shipped: 発送済み
+        before_payment: "入金待ち"
+        confirmed_payment: "入金確認"
+        making: "製作中"
+        ready_for_shipment: "発送準備中"
+        shipped: "発送済み"
+    order_detail:
+      making_status:
+        cannot_start: "着手不可"
+        waiting: "製作待ち"
+        in_production: "製作中"
+        completed: "製作完了"
+    product:
+      is_active:
+        active: "販売中"
+        inactive: "販売停止中"
