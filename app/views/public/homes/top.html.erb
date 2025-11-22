@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <div class="top-about-box mt-3">
+      <h1>ようこそ、ながのCAKEへ!</h1>
+
+      <p>このサイトは、ケーキ販売のECサイトになります。<br>
+        会員でない方も商品の閲覧はできますが、購入には会員登録が必要になります。</p>
+      </div>
+      
+      <h2 class="mb-4 mt-5">新着商品</h2>
+      <div class="row">
+        <% @products.each do |product| %>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><%= product.name %></h5>
+                <p>¥<%= product.price %></p>
+                <%= link_to "詳細", item_path(product), class: "btn btn-sm btn-primary" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+  
+  <%= link_to "全ての商品を見る", items_path, class: "btn btn-success mt-3" %>
+</div>
