@@ -31,9 +31,9 @@ class Order < ApplicationRecord
     I18n.t("enums.order.status.#{status}")
   end
   
-  # 商品合計金額を計算（既存のtotalメソッドと同じ）
+  # 商品合計金額を計算（税込）
   def total
-    order_details.sum { |detail| detail.price * detail.amount }
+    order_details.sum(&:subtotal)
   end
   
   # 商品合計（エイリアス）
@@ -41,7 +41,7 @@ class Order < ApplicationRecord
     total
   end
   
-  # 請求金額を計算（既存のbilling_amountメソッドと同じ）
+  # 請求金額を計算（商品合計 + 送料）
   def billing_amount
     shipping_cost + total
   end

@@ -5,40 +5,41 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-  @addresses = current_customer.addresses
+    @addresses = current_customer.addresses
 
-  # 必須チェック
-  if params[:order].nil? || params[:order][:payment_method].blank?
-    flash.now[:alert] = "支払い方法を選択してください"
-    return render :new
-  end
+    # 必須チェック
+    if params[:order].nil? || params[:order][:payment_method].blank?
+      flash.now[:alert] = "支払い方法を選択してください"
+      return render :new
+    end
 
-  if params[:order].nil? || params[:order][:address_option].blank?
-    flash.now[:alert] = "お届け先を選択してください"
-    return render :new
-  end
-  @order = Order.new(order_params)
-  @order.customer_id = current_customer.id
-  @order.payment_method = params[:order][:payment_method]
-  
-  address_option = params[:order][:address_option]
+    if params[:order].nil? || params[:order][:address_option].blank?
+      flash.now[:alert] = "お届け先を選択してください"
+      return render :new
+    end
+    
+    @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
+    @order.payment_method = params[:order][:payment_method]
+    
+    address_option = params[:order][:address_option]
 
-  if address_option == "own"
-    @order.postal_code = current_customer.postal_code
-    @order.address = current_customer.address
-    @order.name = current_customer.last_name + current_customer.first_name
+    if address_option == "own"
+      @order.postal_code = current_customer.postal_code
+      @order.address = current_customer.address
+      @order.name = current_customer.last_name + current_customer.first_name
 
-  elsif address_option == "registered"
-    address = Address.find(params[:order][:registered_address_id])
-    @order.postal_code = address.postal_code
-    @order.address = address.address
-    @order.name = address.name
+    elsif address_option == "registered"
+      address = Address.find(params[:order][:registered_address_id])
+      @order.postal_code = address.postal_code
+      @order.address = address.address
+      @order.name = address.name
 
-  elsif address_option == "new"
-    @order.postal_code = params[:order][:postal_code]
-    @order.address = params[:order][:address]
-    @order.name = params[:order][:name]
-  end
+    elsif address_option == "new"
+      @order.postal_code = params[:order][:postal_code]
+      @order.address = params[:order][:address]
+      @order.name = params[:order][:name]
+    end
 
     @cart_items = current_customer.cart_items
   end
@@ -47,17 +48,29 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.shipping_cost = 800
-
-    @order.total_payment = @order.billing_amount
     
-    @order.save
+    # カートの商品合計（税込）を計算
+    cart_total = current_customer.cart_items.sum(&:subtotal)
+    @order.total_payment = cart_total + 800  # 商品合計 + 送料
+    
+    if @order.save
+      # OrderDetailを作成（税込価格を保存）
+      current_customer.cart_items.each do |cart_item|
+        OrderDetail.create!(
+          order_id: @order.id,
+          product_id: cart_item.product_id,
+          amount: cart_item.amount,
+          price: cart_item.product.with_tax_price  # ← ✅ 税込価格！
+        )
+      end
 
-    current_customer.cart_items.each do |cart_item|
-      OrderDetail.create(order_id: @order.id,product_id:cart_item.product_id,amount: cart_item.amount,price: cart_item.product.price)
-  end
-
-  current_customer.cart_items.destroy_all
-    redirect_to thanks_orders_path
+      # カートを空にする
+      current_customer.cart_items.destroy_all
+      redirect_to thanks_orders_path
+    else
+      flash[:alert] = "注文に失敗しました"
+      redirect_to new_order_path
+    end
   end
 
   def thanks
@@ -75,7 +88,6 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-
-  params.require(:order).permit(:payment_method, :postal_code, :address, :name)
+    params.require(:order).permit(:payment_method, :postal_code, :address, :name)
   end
 end
