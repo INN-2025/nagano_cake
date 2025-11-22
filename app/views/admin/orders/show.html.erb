@@ -7,7 +7,7 @@
     <tbody>
       <tr>
         <th class="table-light" style="width: 180px;">購入者</th>
-        <td><%= link_to @order.name, admin_order_path %></td>
+        <td><%= link_to "#{@order.customer.last_name} #{@order.customer.first_name}", admin_order_path(@order) %></td>
       </tr>
       <tr>
         <th class="table-light">注文日</th>
@@ -22,7 +22,7 @@
       </tr>
       <tr>
         <th class="table-light">支払方法</th>
-        <td><%= @order.payment_method_i18n %></td>
+        <td><%= @order.status_i18n %></td>
       </tr>
       <tr>
         <th class="table-light">注文ステータス</th>
@@ -55,16 +55,16 @@
     </thead>
 
     <tbody>
-      <% @order.order_items.each do |item| %>
+      <% @order.order_details.each do |details| %>
         <tr>
-          <td><%= item.product.name %></td>
-          <td class="text-end"><%= item.price %>円</td>
-          <td class="text-end"><%= item.amount %></td>
-          <td class="text-end"><%= item.subtotal %>円</td>
+<td><%= details.product.name %></td>
+          <td><%= details.price %>円</td>
+          <td><%= details.amount %></td>
+          <td><%= details.subtotal %>円</td>
           <td>
-            <%= form_with model: item, url: admin_order_item_path(item), method: :patch, local: true do |f| %>
+            <%= form_with model: details, url: admin_order_path(details), method: :patch, local: true do |f| %>
               <div class="d-flex">
-                <%= f.select :making_status, Order.statuses.keys.map { |k| [t("enums.Order.status.#{k}"), k] }, class: "form-select w-auto me-2" %>
+                <%= f.select :status, Order.statuses.keys.map { |k| [t("enums.Order.status_i18n.#{k}"), k] }, class: "form-select w-auto me-2" %>
                 <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
               </div>
             <% end %>
