@@ -17,10 +17,18 @@
       <div class="row">
         <% @products.each do |product| %>
           <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card text-center p-3">
+
+              <% if product.image.attached? %>
+                <%= image_tag product.image, size: "200x200", class: "img-fluid mx-auto" %>
+              <% else %>
+                <p>商品画像なし</p>
+              <% end %>
+
               <div class="card-body">
                 <h5 class="card-title"><%= product.name %></h5>
                 <p class="card-text"><%= number_to_currency(product.price, unit: "¥", precision: 0) %></p>
+
                 <%= link_to "詳細を見る", item_path(product), class: "btn btn-primary" %>
               </div>
             </div>
