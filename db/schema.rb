@@ -42,12 +42,11 @@ ActiveRecord::Schema.define(version: 2025_11_22_044152) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "customer_id", null: false
-    t.string "name"
-    t.string "postal_code"
-    t.string "address"
+    t.string "postal_code", null: false
+    t.string "address", null: false
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["customer_id"], name: "index_addresses_on_customer_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -102,9 +101,8 @@ ActiveRecord::Schema.define(version: 2025_11_22_044152) do
   create_table "order_details", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "product_id", null: false
-    t.integer "price"
     t.integer "amount"
-    t.integer "making_status"
+    t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_id"], name: "index_order_details_on_order_id"
@@ -138,6 +136,8 @@ ActiveRecord::Schema.define(version: 2025_11_22_044152) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cart_items", "customers"
+  add_foreign_key "cart_items", "products"
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "products"
   add_foreign_key "orders", "customers"
