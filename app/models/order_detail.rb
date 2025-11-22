@@ -20,3 +20,4 @@ class OrderDetail < ApplicationRecord
     price_with_tax * amount
   end
 end
+

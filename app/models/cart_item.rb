@@ -6,8 +6,8 @@ class CartItem < ApplicationRecord
   # バリデーション
   validates :amount, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  # 小計を計算するメソッド
+  # 小計を計算するメソッド（税込）
   def subtotal
-    product.price * amount
+    product.with_tax_price * amount
   end
 end
