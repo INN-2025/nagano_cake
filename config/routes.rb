@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'sessions/new'
+  end
   namespace :public do
     get 'customers/my_page', to: 'customers#show', as: 'customer_my_page'
     get 'customers/information/edit', to: 'customers#edit', as: 'customer_edit'
