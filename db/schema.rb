@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 2025_11_22_044152) do
     t.integer "payment_method"
     t.integer "shipping_cost"
     t.integer "total_payment"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"

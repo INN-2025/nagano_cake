@@ -1,7 +1,7 @@
 <div class="container" style="max-width: 700px; margin: 40px auto;">
   <h2 class="text-center mb-4">会員情報編集</h2>
 
-  <%= form_with model: @customer, url: public_customer_update_path, method: :patch, local: true do |f| %>
+  <%= form_with model: @customer, url: admin_customer_path, method: :patch, local: true do |f| %>
 
     <!-- 氏名 -->
     <div class="form-group mb-3">
