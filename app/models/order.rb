@@ -1,6 +1,8 @@
 class Order < ApplicationRecord
   belongs_to :customer
   has_many :order_details, dependent: :destroy
+
+  after_update :update_making_status, if: :saved_change_to_status?
   
   # バリデーション
   validates :postal_code, presence: true
@@ -50,4 +52,14 @@ class Order < ApplicationRecord
   def total_amount
     billing_amount
   end
+
+  private
+
+  def update_making_status
+    # 注文ステータスが「入金確認」になった時、全OrderDetailを「製作待ち」に更新
+    if self.confirmed_payment?
+      self.order_details.update_all(making_status: :waiting)
+    end
+  end
+
 end
