@@ -22,7 +22,8 @@ class Public::ItemsController < ApplicationController
   end
 
   def search
-  @products = Product.where("name LIKE ?", "%#{params[:keyword]}%")
-  render :index
+    @products = Product.where("name LIKE ?", "%#{params[:keyword]}%").page(params[:page]).per(6)
+    @genres = Genre.all
+    render :index
   end
 end

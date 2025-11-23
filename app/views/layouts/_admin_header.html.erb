@@ -12,4 +12,19 @@
       <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"nav-link" %></li>
     </ul>
   </div>
+  <% if admin_signed_in? %>
+    <%= form_with url: search_admin_items_path, method: :get, local: true, class: "search-form" do |f| %>
+    <%= f.text_field :keyword, placeholder: "商品検索", class: "search-input" %>
+    <button type="submit" class="search-btn">
+      <i class="fas fa-search"></i>
+    </button>
+    <% end %>
+
+    <%= form_with url: search_admin_customers_path, method: :get, local: true, class: "search-form" do |f| %>
+      <%= f.text_field :keyword, placeholder: "会員検索", class: "search-input" %>
+      <button type="submit" class="search-btn">
+        <i class="fas fa-search"></i>
+      </button>
+    <% end %>
+  <% end %>
 </nav>

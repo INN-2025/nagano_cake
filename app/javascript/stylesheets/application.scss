@@ -117,3 +117,35 @@ h1, h2, h3 {
   object-fit: cover;  
   border-radius: 5px;
 }
+
+.search-form {
+  width: 300px;
+  margin-left: auto;   
+  margin-right: 20px;  
+}
+
+.search-box {
+  margin-right: 30px;
+}
+
+.search-input {
+  width: 200px;
+  border-radius: 5px 0 0 5px;
+}
+
+.search-btn {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  padding: 6px 10px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.search-btn i {
+  color: #8a6d3b; 
+}
+
+.search-input {
+  border: 2px solid #C49A6C; 
+  border-radius: 4px;      
+}
