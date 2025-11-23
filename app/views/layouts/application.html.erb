@@ -12,7 +12,14 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <% if admin_signed_in? %>
+      <%= render 'layouts/admin_header' %>
+    <% elsif customer_signed_in? %>
+      <%= render 'layouts/customer_header' %>
+    <% else %>
+      <%= render 'layouts/before_login_header' %>
+    <% end %>
+    
     <main class="<%= content_for?(:main_class) ? yield(:main_class) :'' %>">
      <%= yield %>
     </main>

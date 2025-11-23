@@ -91,3 +91,29 @@ h1, h2, h3 {
   color: #C9A27D !important;   
   text-decoration: none;
 }
+
+.badge-name {
+  background-color: #fff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #555;
+}
+
+.welcome-name {
+  margin-right: 80px; 
+  font-weight: bold;
+}
+
+.common-text {
+  color: #6b4f31;     
+  font-weight: 500;     
+  letter-spacing: 1px;  
+}
+
+.product-image {
+  width: 220px;   
+  height: 220px;
+  object-fit: cover;  
+  border-radius: 5px;
+}
