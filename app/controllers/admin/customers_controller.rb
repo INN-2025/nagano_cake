@@ -22,6 +22,12 @@ class Admin::CustomersController < ApplicationController
     end
   end
 
+  def search
+    @customers = Customer.where("last_name LIKE ? OR first_name LIKE ?", 
+                               "%#{params[:keyword]}%", "%#{params[:keyword]}%").page(params[:page]).per(10)
+      render :index
+  end
+
   private
 
   def customer_params

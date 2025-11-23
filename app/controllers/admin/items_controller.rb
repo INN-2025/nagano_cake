@@ -42,6 +42,10 @@ class Admin::ItemsController < ApplicationController
       render :edit
     end
   end
+  def search
+    @items = Product.where("name LIKE ?", "%#{params[:keyword]}%").page(params[:page]).per(10)
+    render :index
+  end
 
   private
 

@@ -20,7 +20,7 @@
             <div class="card text-center p-3">
 
               <% if product.image.attached? %>
-                <%= image_tag product.image, size: "200x200", class: "img-fluid mx-auto" %>
+                <%= image_tag product.image, size: "200x200", class: "img-fluid mx-auto product-image" %>
               <% else %>
                 <p>商品画像なし</p>
               <% end %>

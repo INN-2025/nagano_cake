@@ -9,13 +9,23 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" %>
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <main class="<%= content_for?(:main_class) ? yield(:main_class) :'' %>">
-     <%= yield %>
+    <% if admin_signed_in? %>
+      <%= render 'layouts/admin_header' %>
+    <% elsif customer_signed_in? %>
+      <%= render 'layouts/customer_header' %>
+    <% else %>
+      <%= render 'layouts/before_login_header' %>
+    <% end %>
+
+    <main class="<%= content_for?(:main_class) ? yield(:main_class) : '' %>">
+      <%= yield %>
     </main>
+
     <%= render 'layouts/footer' %>
   </body>
 </html>
