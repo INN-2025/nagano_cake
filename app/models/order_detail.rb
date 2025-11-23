@@ -2,6 +2,8 @@ class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :product
 
+  validates :amount, presence: true, numericality: { only_integer: true, greater_than: 0 }
+
   after_update :update_order_status
   
   # enumで製作ステータスを管理
