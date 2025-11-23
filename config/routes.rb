@@ -51,7 +51,11 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get '/about' => 'homes#about'
     
-    resources :items, only: [:index, :show]
+    resources :items, only: [:index, :show] do
+      collection do
+        get 'search'
+      end
+    end
     
     resources :cart_items, only: [:index, :create, :update, :destroy] do
       collection do
