@@ -20,4 +20,9 @@ class Public::ItemsController < ApplicationController
     @cart_item = CartItem.new  # カートアイテムの初期化
     @genres = Genre.where(is_active: true)
   end
+
+  def search
+  @products = Product.where("name LIKE ?", "%#{params[:keyword]}%")
+  render :index
+  end
 end
