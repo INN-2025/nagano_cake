@@ -25,24 +25,32 @@ puts "Created #{Genre.count} genres"
 # 商品作成
 puts "Creating products..."
 products = [
-  { name: "イチゴのショートケーキ", introduction: "甘酸っぱいイチゴと生クリームの絶妙なハーモニー", price: 500, is_active: :active, genre: Genre.find_by(name: "ケーキ") },
-  { name: "チョコレートケーキ", introduction: "濃厚なチョコレートの味わい", price: 450, is_active: :active, genre: Genre.find_by(name: "ケーキ") },
-  { name: "チーズケーキ", introduction: "なめらかな口当たりのチーズケーキ", price: 480, is_active: :active, genre: Genre.find_by(name: "ケーキ") },
-  { name: "モンブラン", introduction: "栗の風味豊かなモンブラン", price: 520, is_active: :active, genre: Genre.find_by(name: "ケーキ") },
-  { name: "クッキー詰め合わせ", introduction: "サクサクのクッキー10枚入り", price: 300, is_active: :active, genre: Genre.find_by(name: "焼き菓子") },
-  { name: "マドレーヌ", introduction: "しっとりふんわりマドレーヌ6個入り", price: 350, is_active: :active, genre: Genre.find_by(name: "焼き菓子") },
-  { name: "フィナンシェ", introduction: "アーモンドの香り豊かなフィナンシェ", price: 400, is_active: :active, genre: Genre.find_by(name: "焼き菓子") },
-  { name: "なめらかプリン", introduction: "口どけなめらかな極上プリン", price: 250, is_active: :active, genre: Genre.find_by(name: "プリン") },
-  { name: "かぼちゃプリン", introduction: "かぼちゃの優しい甘さのプリン", price: 280, is_active: :active, genre: Genre.find_by(name: "プリン") },
-  { name: "キャラメルキャンディ", introduction: "濃厚なキャラメル味のキャンディ", price: 200, is_active: :active, genre: Genre.find_by(name: "キャンディ") }
+  { name: "イチゴのショートケーキ", introduction: "甘酸っぱいイチゴと生クリームの絶妙なハーモニー", price: 500, is_active: :active, genre: Genre.find_by(name: "ケーキ"), image: "shortcake.jpg" },
+  { name: "チョコレートケーキ", introduction: "濃厚なチョコレートの味わい", price: 450, is_active: :active, genre: Genre.find_by(name: "ケーキ"), image: "chocolate.jpg" },
+  { name: "チーズケーキ", introduction: "なめらかな口当たりのチーズケーキ", price: 480, is_active: :active, genre: Genre.find_by(name: "ケーキ"), image: "chees.jpg" },
+  { name: "モンブラン", introduction: "栗の風味豊かなモンブラン", price: 520, is_active: :active, genre: Genre.find_by(name: "ケーキ"), image: "monbran.jpg" },
+  { name: "クッキー詰め合わせ", introduction: "サクサクのクッキー10枚入り", price: 300, is_active: :active, genre: Genre.find_by(name: "焼き菓子"), image: "cookie.png" },
+  { name: "マドレーヌ", introduction: "しっとりふんわりマドレーヌ6個入り", price: 350, is_active: :active, genre: Genre.find_by(name: "焼き菓子"), image: "madorenu.png" },
+  { name: "フィナンシェ", introduction: "アーモンドの香り豊かなフィナンシェ", price: 400, is_active: :active, genre: Genre.find_by(name: "焼き菓子"), image: "finansh.png" },
+  { name: "なめらかプリン", introduction: "口どけなめらかな極上プリン", price: 250, is_active: :active, genre: Genre.find_by(name: "プリン"), image: "purin.png" },
+  { name: "かぼちゃプリン", introduction: "かぼちゃの優しい甘さのプリン", price: 280, is_active: :active, genre: Genre.find_by(name: "プリン"), image: "panpkin.png" },
+  { name: "キャラメルキャンディ", introduction: "濃厚なキャラメル味のキャンディ", price: 200, is_active: :active, genre: Genre.find_by(name: "キャンディ"), image: "caramel.png" }
 ]
 
 products.each do |product_data|
-  Product.find_or_create_by!(name: product_data[:name]) do |product|
+  product = Product.find_or_create_by!(name: product_data[:name]) do |product|
     product.introduction = product_data[:introduction]
     product.price = product_data[:price]
     product.is_active = product_data[:is_active]
     product.genre = product_data[:genre]
+  end
+
+  unless product.image.attached?
+    image_path = Rails.root.join("app/assets/images/#{product_data[:image]}")
+    product.image.attach(
+      io: File.open(image_path),
+      filename: product_data[:image]
+    )
   end
 end
 

@@ -1,8 +1,7 @@
 <% content_for :main_class,"oeders-new" %>
 
+<div class="container mt-5">
   <h2 class="mb-4">注文情報入力</h2>
-
-  <div class="container mt-5">
 
     <!-- 支払い方法 -->
     <div class="mb-4">
@@ -15,12 +14,12 @@
 
       <%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %>
 
-        <div class="form-check">
+        <div class="form-check  mb-2">
           <%= f.radio_button :payment_method, "credit_card", class: "form-check-input" %>
           <%= f.label :payment_method_credit_card, "クレジットカード", class: "form-check-label" %>
         </div>
 
-        <div class="form-check">
+        <div class="form-check mb-2">
           <%= f.radio_button :payment_method, "bank_transfer", class: "form-check-input" %>
           <%= f.label :payment_method_bank_transfer, "銀行振込", class: "form-check-label" %>
         </div>
@@ -44,7 +43,8 @@
             <%= f.radio_button :address_option, "registered", class: "form-check-input" %>
             <%= f.label :address_option_registered, "登録済住所から選択", class: "form-check-label" %>
 
-            <br>
+          </div>
+          <div class="mt-2 ps-4">
 
             <%= f.collection_select :registered_address_id,
                                     @addresses,
@@ -59,18 +59,18 @@
           <%= f.label :address_option_new, "新しいお届け先", class: "form-check-label" %>
         </div>
 
-        <div class="ms-4">
-          <div class="mb-3">
+        <div class="ps-4">
+          <div class="mb-3 w-50">
             <%= f.label :postal_code, "郵便番号（ハイフンなし）" %>
             <%= f.text_field :postal_code, class: "form-control w-25" %>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3 w-100">
             <%= f.label :address, "住所" %>
             <%= f.text_field :address, class: "form-control w-50" %>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3 w-50">
             <%= f.label :name, "宛名" %>
             <%= f.text_field :name, class: "form-control w-25" %>
           </div>
