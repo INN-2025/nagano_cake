@@ -9,4 +9,14 @@ class Customer < ApplicationRecord
   has_many :orders, dependent: :destroy
   
   has_many :addresses, dependent: :destroy
+  # 退会済みユーザーはログインできないようにする
+  def active_for_authentication?
+    super && is_active
+  end
+
+  # 退会済みユーザーへのメッセージ
+  def inactive_message
+    is_active ? super : :account_inactive
+  end
+
 end
