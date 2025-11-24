@@ -14,7 +14,10 @@
             <div class="card">
             
              <% if product.image.attached? %>
-               <%= image_tag product.image, size: "200x200", class: "img-fluid mx-auto" %>
+               <%= link_to item_path(product.id) do %>
+                 <%= image_tag product.image, size: "200x200", class: "img-fluid mx-auto" %>
+               <% end %>
+               
              <% end %>
 
               <div class="card-body">
