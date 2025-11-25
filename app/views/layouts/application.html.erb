@@ -23,7 +23,9 @@
     <% end %>
 
     <main class="<%= content_for?(:main_class) ? yield(:main_class) : '' %>">
-      <%= yield %>
+      <div class="container">
+        <%= yield %>
+      </div>
     </main>
 
     <%= render 'layouts/footer' %>
